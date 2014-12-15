@@ -1,78 +1,58 @@
-﻿namespace OAuthAuthorizationServer.Controllers {
-	using System;
-	using System.Linq;
-	using System.Threading.Tasks;
-	using System.Web.Mvc;
-	using System.Web.Security;
-	using DotNetOpenAuth.Messaging;
-	using DotNetOpenAuth.OpenId;
-	using DotNetOpenAuth.OpenId.RelyingParty;
-	using OAuthAuthorizationServer.Code;
-	using OAuthAuthorizationServer.Models;
+﻿namespace OAuthAuthorizationServer.Controllers
+{
+    using OAuthAuthorizationServer.Code;
+    using OAuthAuthorizationServer.Models;
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Web.Mvc;
+    using System.Web.Security;
 
-	[HandleError]
-	public class AccountController : Controller {
-		// **************************************
-		// URL: /Account/LogOn
-		// **************************************
-		public ActionResult LogOn() {
-			return View();
-		}
+    [HandleError]
+    public class AccountController : Controller
+    {
+        // **************************************
+        // URL: /Account/LogOn
+        // **************************************
+        public ActionResult LogOn()
+        {
+            return View();
+        }
 
-		[HttpPost]
-		public async Task<ActionResult> LogOn(LogOnModel model, string returnUrl) {
-			if (ModelState.IsValid) {
-				var rp = new OpenIdRelyingParty();
-				var request = await rp.CreateRequestAsync(model.UserSuppliedIdentifier, Realm.AutoDetect, new Uri(Request.Url, Url.Action("Authenticate")));
-				if (request != null) {
-					if (returnUrl != null) {
-						request.AddCallbackArguments("returnUrl", returnUrl);
-					}
+        [HttpPost]
+        public async Task<ActionResult> LogOn(LogOnModel model, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                //Here, we fake user authentication.  The original DotNetOpenAuthExamples had the user
+                //enter an OpenId URL, authenticate with the open id provider and then return to the client.
+                //We want to be the authentication authority in this example.   In reality, we would probably
+                //be using a MembershipProvider instance or other form of authentication.
+                // Make sure we have a user account for this guy.
+                string identifier = model.UserName; // convert to string so LinqToSQL expression parsing works.
+                if (MvcApplication.DataContext.Users.FirstOrDefault(u => u.OpenIDClaimedIdentifier == identifier) == null)
+                {
+                    MvcApplication.DataContext.Users.InsertOnSubmit(new User
+                    {
+                        OpenIDFriendlyIdentifier = identifier,
+                        OpenIDClaimedIdentifier = identifier,
+                    });
+                }
+                FormsAuthentication.SetAuthCookie(identifier, false);
+                return this.Redirect(returnUrl ?? Url.Action("Index", "Home"));
+            }
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
 
-					var response = await request.GetRedirectingResponseAsync();
-					return response.AsActionResult();
-				} else {
-					ModelState.AddModelError(string.Empty, "The identifier you supplied is not recognized as a valid OpenID Identifier.");
-				}
-			}
+        // **************************************
+        // URL: /Account/LogOff
+        // **************************************
+        public ActionResult LogOff()
+        {
+            FormsAuthentication.SignOut();
 
-			// If we got this far, something failed, redisplay form
-			return View(model);
-		}
-
-		public async Task<ActionResult> Authenticate(string returnUrl) {
-			var rp = new OpenIdRelyingParty();
-			var response = await rp.GetResponseAsync(Request);
-			if (response != null) {
-				switch (response.Status) {
-					case AuthenticationStatus.Authenticated:
-						// Make sure we have a user account for this guy.
-						string identifier = response.ClaimedIdentifier; // convert to string so LinqToSQL expression parsing works.
-						if (MvcApplication.DataContext.Users.FirstOrDefault(u => u.OpenIDClaimedIdentifier == identifier) == null) {
-							MvcApplication.DataContext.Users.InsertOnSubmit(new User {
-								OpenIDFriendlyIdentifier = response.FriendlyIdentifierForDisplay,
-								OpenIDClaimedIdentifier = response.ClaimedIdentifier,
-							});
-						}
-
-						FormsAuthentication.SetAuthCookie(response.ClaimedIdentifier, false);
-						return this.Redirect(returnUrl ?? Url.Action("Index", "Home"));
-					default:
-						ModelState.AddModelError(string.Empty, "An error occurred during login.");
-						break;
-				}
-			}
-
-			return this.View("LogOn");
-		}
-
-		// **************************************
-		// URL: /Account/LogOff
-		// **************************************
-		public ActionResult LogOff() {
-			FormsAuthentication.SignOut();
-
-			return RedirectToAction("Index", "Home");
-		}
-	}
+            return RedirectToAction("Index", "Home");
+        }
+    }
 }

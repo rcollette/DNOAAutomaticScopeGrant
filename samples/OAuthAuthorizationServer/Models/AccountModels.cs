@@ -1,13 +1,19 @@
-﻿namespace OAuthAuthorizationServer.Models {
-	using System.ComponentModel;
-	using System.ComponentModel.DataAnnotations;
+﻿namespace OAuthAuthorizationServer.Models
+{
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
-	public class LogOnModel {
-		[Required]
-		[DisplayName("OpenID")]
-		public string UserSuppliedIdentifier { get; set; }
+    public class LogOnModel
+    {
+        [Required]
+        [DisplayName("User Name")]
+        public string UserName { get; set; }
 
-		[DisplayName("Remember me?")]
-		public bool RememberMe { get; set; }
-	}
+        [Required]
+        [DisplayName("Password")]
+        public string Password { get; set; }
+
+        [DisplayName("Remember me?")]
+        public bool RememberMe { get; set; }
+    }
 }
