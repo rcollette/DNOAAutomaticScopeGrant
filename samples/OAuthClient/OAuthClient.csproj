@@ -80,8 +80,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AuthorizationRequestor.html" />
-    <Content Include="AuthorizationRequestor.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="SampleWcf2Javascript.html" />
@@ -178,14 +176,6 @@
     <ProjectReference Include="..\..\src\DotNetOpenAuth.OAuth\DotNetOpenAuth.OAuth.csproj">
       <Project>{A288FCC8-6FCF-46DA-A45E-5F9281556361}</Project>
       <Name>DotNetOpenAuth.OAuth</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\DotNetOpenAuth.OpenIdOAuth\DotNetOpenAuth.OpenIdOAuth.csproj">
-      <Project>{4BFAA336-5DF3-4F27-82D3-06D13240E8AB}</Project>
-      <Name>DotNetOpenAuth.OpenIdOAuth</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\DotNetOpenAuth.OpenId\DotNetOpenAuth.OpenId.csproj">
-      <Project>{3896A32A-E876-4C23-B9B8-78E17D134CD3}</Project>
-      <Name>DotNetOpenAuth.OpenId</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

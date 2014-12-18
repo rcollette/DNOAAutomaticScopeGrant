@@ -46,15 +46,15 @@
                     response.ClientDisconnectedToken);
             if (authorization != null)
             {
-                await RetrieveResources(context, authorization);
+                await RetrieveResourcesAsync(context, authorization);
             }
             else
             {
-                await RequestAuthorization(context);
+                await RequestAuthorizationAsync(context);
             }
         }
 
-        private async Task RetrieveResources(HttpContext context, IAuthorizationState authorization)
+        private async Task RetrieveResourcesAsync(HttpContext context, IAuthorizationState authorization)
         {
             var response = context.Response;
             string statusMessage = null;
@@ -83,7 +83,7 @@
             response.StatusCode = (int)HttpStatusCode.Unauthorized;
         }
 
-        private async Task RequestAuthorization(HttpContext context)
+        private async Task RequestAuthorizationAsync(HttpContext context)
         {
             //Specify the data set we are requesting authorization for.
             string[] scopes = { "UserProfile" };
