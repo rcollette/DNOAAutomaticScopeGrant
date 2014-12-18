@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>OAuth 2.0 Client (implicit grant)</title>
+    <script src="DynamicGlobalVariables.ashx"></script>
+    <script src="Scripts/jquery-1.6.1.js"></script>
+    <script src="AuthorizationRequestor.js"></script>
+</head>
+<body>
+    <h1>This page will:</h1>
+    <ol>
+        <li>Send request for authorization for a particular scope to the authorization server</li>
+        <li>The authorization server will authenticate the user.</li>
+        <li>The authorization server will redirect back to ClientLogOn.ashx</li>
+        <li>ClientLogOn.ashx will obtain user profile information from the resource server</li>
+        <li>ClientLogOn.ashx will then perform a formsauthentication redirect to a secured response page.</li>
+    </ol>
+    <label id="StatusCode" />
+    <br />
+    <label id="StatusMessage" />
+</body>
+</html>

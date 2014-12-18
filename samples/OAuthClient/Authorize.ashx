@@ -1,0 +1,1 @@
+﻿<%@ WebHandler Language="C#" CodeBehind="Authorize.ashx.cs" Class="OAuthClient.Authorize" %>
