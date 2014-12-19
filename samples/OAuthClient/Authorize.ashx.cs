@@ -3,13 +3,9 @@
     using DotNetOpenAuth.Messaging;
     using DotNetOpenAuth.OAuth2;
     using OAuthClient.SampleResourceServer;
-    using System;
     using System.Net;
     using System.Net.Http;
-    using System.ServiceModel;
-    using System.ServiceModel.Channels;
     using System.ServiceModel.Security;
-    using System.Threading;
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Security;
@@ -58,13 +54,15 @@
         {
             var response = context.Response;
             string statusMessage = null;
-            //Get the user's profile information
+            // Get the user's profile information
             try
             {
-                UserProfile userProfile = await this.CallServiceAsync(client => client.GetUserProfile(), authorization, response.ClientDisconnectedToken);
-                UserProfileSessionState.Current = userProfile;
+                var client = new ProfileServiceClient();
+                UserProfile userProfile = await client.CallAsync(c => c.GetUserProfile(), authorization, response.ClientDisconnectedToken);
+                //Do whatever you need to with the userProfile here
                 FormsAuthentication.SetAuthCookie(userProfile.EmailAddress, false);
-                //Add anything else you need in the response here (ex. JSON data);
+                // Add anything else you need in the response here (ex. JSON data);
+                context.Response.Write("Success.");
                 return;
             }
             catch (SecurityAccessDeniedException ex)
@@ -80,48 +78,19 @@
             if (statusMessage != null)
             {
             }
-            response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            response.StatusCode = (int)HttpStatusCode.Forbidden;
         }
 
         private async Task RequestAuthorizationAsync(HttpContext context)
         {
-            //Specify the data set we are requesting authorization for.
-            string[] scopes = { "UserProfile" };
-            //Build a response that will redirect the client to the authorization server for logon.
+            // Specify the data set we are requesting authorization for.
+            string[] scopes = { "http://www.acme.com/ProfileService/IProfileService/GetUserProfile" };
+            // Build a response that will redirect the client to the authorization server for logon.
             HttpResponseMessage request =
                  await AuthorizationServer.Client.PrepareRequestUserAuthorizationAsync(scopes, cancellationToken: context.Response.ClientDisconnectedToken);
-            //Send the response to the client user agent.
+            // Send the response to the client user agent.
             await request.SendAsync();
             context.Response.End();
-        }
-
-        private async Task<T> CallServiceAsync<T>(Func<DataApiClient, T> predicate, IAuthorizationState authorization, CancellationToken cancellationToken)
-        {
-            if (authorization == null)
-            {
-                throw new InvalidOperationException("No access token!");
-            }
-
-            var wcfClient = new DataApiClient();
-
-            // Refresh the access token if it expires and if its lifetime is too short to be of use.
-            if (authorization.AccessTokenExpirationUtc.HasValue)
-            {
-                if (await AuthorizationServer.Client.RefreshAuthorizationAsync(authorization, TimeSpan.FromSeconds(30)))
-                {
-                }
-            }
-
-            var httpRequest = (HttpWebRequest)WebRequest.Create(wcfClient.Endpoint.Address.Uri);
-            ClientBase.AuthorizeRequest(httpRequest, authorization.AccessToken);
-
-            var httpDetails = new HttpRequestMessageProperty();
-            httpDetails.Headers[HttpRequestHeader.Authorization] = httpRequest.Headers[HttpRequestHeader.Authorization];
-            using (var scope = new OperationContextScope(wcfClient.InnerChannel))
-            {
-                OperationContext.Current.OutgoingMessageProperties[HttpRequestMessageProperty.Name] = httpDetails;
-                return predicate(wcfClient);
-            }
         }
     }
 }

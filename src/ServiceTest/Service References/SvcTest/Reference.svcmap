@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="28cd65da-91d8-4649-a196-38b8c4b36256" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:65170/DataApi.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="DataApi.xsd" MetadataType="Schema" ID="7c58cc29-61d2-4fde-a128-5011b1606e25" SourceId="1" SourceUrl="http://localhost:65170/DataApi.svc?xsd=xsd2" />
+    <MetadataFile FileName="DataApi1.xsd" MetadataType="Schema" ID="35d57608-1a55-4795-b37f-7ac31d59d39b" SourceId="1" SourceUrl="http://localhost:65170/DataApi.svc?xsd=xsd1" />
+    <MetadataFile FileName="DataApi.disco" MetadataType="Disco" ID="8e2a7671-4e94-44a2-bae6-cc817507c1a9" SourceId="1" SourceUrl="http://localhost:65170/DataApi.svc?disco" />
+    <MetadataFile FileName="DataApi2.xsd" MetadataType="Schema" ID="8290e7c4-da80-4ef6-9b58-01f146fc0dd2" SourceId="1" SourceUrl="http://localhost:65170/DataApi.svc?xsd=xsd0" />
+    <MetadataFile FileName="DataApi.wsdl" MetadataType="Wsdl" ID="0c02803b-6460-4014-b4ca-ba686b9d6146" SourceId="1" SourceUrl="http://localhost:65170/DataApi.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -82,78 +82,51 @@
   <ItemGroup>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="SampleWcf2Javascript.html" />
-    <Content Include="SampleWcf2Javascript.js" />
-    <Content Include="Scripts\jquery-1.6.1.js" />
-    <Content Include="Scripts\jquery-1.6.1.min.js" />
     <Content Include="packages.config" />
-    <Content Include="DynamicGlobalVariables.ashx" />
     <Content Include="Authorize.ashx" />
-    <None Include="Service References\SampleResourceServer\DataApi.disco" />
     <None Include="Service References\SampleResourceServer\configuration91.svcinfo" />
     <None Include="Service References\SampleResourceServer\configuration.svcinfo" />
     <Content Include="Service References\SampleResourceServer\OAuthClient.SampleResourceServer.UserProfile.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <None Include="Service References\SampleResourceServer\ProfileService.wsdl" />
+    <None Include="Service References\SampleResourceServer\ProfileService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SampleResourceServer\ProfileService1.wsdl" />
+    <None Include="Service References\SampleResourceServer\ProfileService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SampleResourceServer\ProfileService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\SampleResourceServer\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="SampleWcf2.aspx" />
-    <Content Include="TracePage.aspx" />
+    <None Include="Service References\SampleResourceServer\ProfileService.disco" />
     <Content Include="Web.config" />
-    <None Include="Service References\SampleResourceServer\DataApi1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\SampleResourceServer\DataApi2.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code\AuthorizationServer.cs" />
-    <Compile Include="Code\AuthorizationSessionState.cs" />
-    <Compile Include="Code\UserProfileSessionState.cs" />
+    <Compile Include="Code\ExtensionMethods.cs" />
     <Compile Include="Code\Logging.cs" />
-    <Compile Include="DynamicGlobalVariables.ashx.cs">
-      <DependentUpon>DynamicGlobalVariables.ashx</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Authorize.ashx.cs">
       <DependentUpon>Authorize.ashx</DependentUpon>
     </Compile>
-    <Compile Include="SampleWcf2.aspx.cs">
-      <DependentUpon>SampleWcf2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="SampleWcf2.aspx.designer.cs">
-      <DependentUpon>SampleWcf2.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Service References\SampleResourceServer\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="TracePage.aspx.cs">
-      <DependentUpon>TracePage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TracePage.aspx.designer.cs">
-      <DependentUpon>TracePage.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Code\TracePageAppender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="MasterPage.master" />
-    <None Include="Service References\SampleResourceServer\DataApi.wsdl" />
-    <None Include="Service References\SampleResourceServer\DataApi.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Settings.StyleCop" />
   </ItemGroup>
   <ItemGroup>

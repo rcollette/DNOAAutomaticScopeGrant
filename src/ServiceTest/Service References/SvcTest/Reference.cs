@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OAuthClient.SampleResourceServer {
+namespace ServiceTest.SvcTest {
     using System.Runtime.Serialization;
     using System;
     
@@ -17,7 +17,7 @@ namespace OAuthClient.SampleResourceServer {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="UserProfile", Namespace="http://schemas.datacontract.org/2004/07/OAuthResourceServer.Code")]
     [System.SerializableAttribute()]
-    internal partial class UserProfile : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class UserProfile : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -48,7 +48,7 @@ namespace OAuthClient.SampleResourceServer {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal int CompanyId {
+        public int CompanyId {
             get {
                 return this.CompanyIdField;
             }
@@ -61,7 +61,7 @@ namespace OAuthClient.SampleResourceServer {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string EmailAddress {
+        public string EmailAddress {
             get {
                 return this.EmailAddressField;
             }
@@ -74,7 +74,7 @@ namespace OAuthClient.SampleResourceServer {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string FirstName {
+        public string FirstName {
             get {
                 return this.FirstNameField;
             }
@@ -87,7 +87,7 @@ namespace OAuthClient.SampleResourceServer {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string LastName {
+        public string LastName {
             get {
                 return this.LastNameField;
             }
@@ -100,7 +100,7 @@ namespace OAuthClient.SampleResourceServer {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal int PersonId {
+        public int PersonId {
             get {
                 return this.PersonIdField;
             }
@@ -123,48 +123,48 @@ namespace OAuthClient.SampleResourceServer {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="http://www.acme.com/ProfileService/", ConfigurationName="SampleResourceServer.IProfileService")]
-    internal interface IProfileService {
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="SvcTest.IDataApi")]
+    public interface IDataApi {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://www.acme.com/ProfileService/IProfileService/GetUserProfile", ReplyAction="http://www.acme.com/ProfileService/IProfileService/GetUserProfileResponse")]
-        OAuthClient.SampleResourceServer.UserProfile GetUserProfile();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataApi/GetUserProfile", ReplyAction="http://tempuri.org/IDataApi/GetUserProfileResponse")]
+        ServiceTest.SvcTest.UserProfile GetUserProfile();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://www.acme.com/ProfileService/IProfileService/GetUserProfile", ReplyAction="http://www.acme.com/ProfileService/IProfileService/GetUserProfileResponse")]
-        System.Threading.Tasks.Task<OAuthClient.SampleResourceServer.UserProfile> GetUserProfileAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataApi/GetUserProfile", ReplyAction="http://tempuri.org/IDataApi/GetUserProfileResponse")]
+        System.Threading.Tasks.Task<ServiceTest.SvcTest.UserProfile> GetUserProfileAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    internal interface IProfileServiceChannel : OAuthClient.SampleResourceServer.IProfileService, System.ServiceModel.IClientChannel {
+    public interface IDataApiChannel : ServiceTest.SvcTest.IDataApi, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    internal partial class ProfileServiceClient : System.ServiceModel.ClientBase<OAuthClient.SampleResourceServer.IProfileService>, OAuthClient.SampleResourceServer.IProfileService {
+    public partial class DataApiClient : System.ServiceModel.ClientBase<ServiceTest.SvcTest.IDataApi>, ServiceTest.SvcTest.IDataApi {
         
-        public ProfileServiceClient() {
+        public DataApiClient() {
         }
         
-        public ProfileServiceClient(string endpointConfigurationName) : 
+        public DataApiClient(string endpointConfigurationName) : 
                 base(endpointConfigurationName) {
         }
         
-        public ProfileServiceClient(string endpointConfigurationName, string remoteAddress) : 
+        public DataApiClient(string endpointConfigurationName, string remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public ProfileServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public DataApiClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public ProfileServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public DataApiClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
         }
         
-        public OAuthClient.SampleResourceServer.UserProfile GetUserProfile() {
+        public ServiceTest.SvcTest.UserProfile GetUserProfile() {
             return base.Channel.GetUserProfile();
         }
         
-        public System.Threading.Tasks.Task<OAuthClient.SampleResourceServer.UserProfile> GetUserProfileAsync() {
+        public System.Threading.Tasks.Task<ServiceTest.SvcTest.UserProfile> GetUserProfileAsync() {
             return base.Channel.GetUserProfileAsync();
         }
     }

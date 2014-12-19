@@ -14,8 +14,14 @@
     /// is the user being impersonated by the WCF client.
     /// In the OAuth case, it is the user who authorized the OAuth access token that was used
     /// to gain access to the service.
+    ///
+    /// AddressFilterMode.Any is necessary to run behind an SSL load balancer
     /// </remarks>
-    public class DataApi : IDataApi
+
+    [ServiceBehavior(AddressFilterMode = AddressFilterMode.Any,
+        ConcurrencyMode = ConcurrencyMode.Multiple,
+        InstanceContextMode = InstanceContextMode.Single)]
+    public class ProfileService : IProfileService
     {
         private IIdentity User
         {
