@@ -30,8 +30,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Specs", "Specs", "{CD57219F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{B4C6F647-C046-4B54-BE12-7701C4119EE7}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\..\..\temp\DotNetOpenAuthAutomaticScopeGrantExampleFlow.rtf = ..\..\..\..\..\temp\DotNetOpenAuthAutomaticScopeGrantExampleFlow.rtf
-		..\..\..\..\..\temp\OAuthSessionCapture.saz = ..\..\..\..\..\temp\OAuthSessionCapture.saz
+		..\samples\DotNetOpenAuthAutomaticScopeGrantExampleFlow.rtf = ..\samples\DotNetOpenAuthAutomaticScopeGrantExampleFlow.rtf
+		..\samples\OAuthSessionCapture.saz = ..\samples\OAuthSessionCapture.saz
 		..\samples\WalkThroughBreakpoints.xml = ..\samples\WalkThroughBreakpoints.xml
 	EndProjectSection
 EndProject
