@@ -36,17 +36,21 @@
         public override async Task ProcessRequestAsync(HttpContext context)
         {
             var response = context.Response;
+            // Using DotNetOpenAuth, check if this request is the result of a redirect from the authorization server which will contain an authorization token.
             var authorization =
                 await AuthorizationServer.Client.ProcessUserAuthorizationAsync(
                     new HttpRequestWrapper(context.Request),
                     response.ClientDisconnectedToken);
-            if (authorization != null)
+            // If this is not a redirect from the authorization server
+            if (authorization == null)
             {
-                await RetrieveResourcesAsync(context, authorization);
+                // Request authorization from the authorization server.
+                await RequestAuthorizationAsync(context);
             }
             else
             {
-                await RequestAuthorizationAsync(context);
+                // If this is an authorization redirect, get the resources.
+                await RetrieveResourcesAsync(context, authorization);
             }
         }
 
@@ -86,10 +90,10 @@
             // Specify the data set we are requesting authorization for.
             string[] scopes = { "http://www.acme.com/ProfileService/IProfileService/GetUserProfile" };
             // Build a response that will redirect the client to the authorization server for logon.
-            HttpResponseMessage request =
+            HttpResponseMessage httpResponseMessage =
                  await AuthorizationServer.Client.PrepareRequestUserAuthorizationAsync(scopes, cancellationToken: context.Response.ClientDisconnectedToken);
             // Send the response to the client user agent.
-            await request.SendAsync();
+            await httpResponseMessage.SendAsync();
             context.Response.End();
         }
     }

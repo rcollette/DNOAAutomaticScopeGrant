@@ -50,6 +50,7 @@
                 return response.AsActionResult();
             }
 
+            //The client application was not previously authorized to retrieve the resource so now the user is prompted to grant access to the client application.
             var model = new AccountAuthorizeModel
             {
                 ClientApp = requestingClient.Name,
