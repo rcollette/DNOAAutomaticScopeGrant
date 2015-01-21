@@ -93,12 +93,12 @@
         private void Application_Start(object sender, EventArgs e)
         {
             log4net.Config.XmlConfigurator.Configure();
-            Logger.Info("Sample starting...");
+            Logger.Info("OAuthClient Resource Server Sample starting...");
         }
 
         private void Application_End(object sender, EventArgs e)
         {
-            Logger.Info("Sample shutting down...");
+            Logger.Info("OAuthClient Resource Server Sample shutting down...");
 
             // this would be automatic, but in partial trust scenarios it is not.
             log4net.LogManager.Shutdown();

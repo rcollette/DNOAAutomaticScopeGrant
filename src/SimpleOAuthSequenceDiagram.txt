@@ -52,16 +52,16 @@ note right of Authorization Server:
  value itself.
 end note
 Authorization Server-->-Browser:Redirect to client/Authorize.ashx?code=xxxx&state=antiForgeryToken
-Browser->+Client:get client.com/Authorize.ashx?code=xxxx
-Client->Client:Validate state and get authorization server URL.
+Browser->+Client:get client.com/Authorize.ashx?code=xxxx&state=antiForgeryToken
+Client->Client:Validate state and get configured Token Server URL.
 Client->+Authorization Server:POST OAuth/Token\n{code=xxx,\n redirect_uri=http://client.com/Authorize.ashx,\ngrant_type=authorization_code}
 Authorization Server-->-Client:{"access_token":"yyyy"}
 Client->+Resource Server:POST /ProfileService.svc\nHTTP Header Authorize: Bearer yyyy
 note right of Resource Server:
  Service Authorization behavior class 
- OAuthAuthorizationManager validates the 
+ OAuthAuthorizationManager decrypts the 
  token that was contained in the Authorize
- HTTP header.
+ HTTP header to obtain the Principal.
 end note
 Resource Server-->-Client:Service response
 Client->Client:Do something with service response
@@ -78,4 +78,3 @@ note right of Browser:
 end note
 App->+Browser:GetData
 Browser-->-App:Data
-
