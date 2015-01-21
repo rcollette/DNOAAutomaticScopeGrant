@@ -1,0 +1,81 @@
+#Sequence Diagram Definition for http://www.websequencediagrams.com
+title OAuth Simple Authentication
+
+participant App
+participant "WebView" as Browser
+participant Client
+participant Authorization Server
+participant Resource Server
+
+App->Browser:Create
+App->Browser:Subscribe to events
+App->Browser:Navigate("/Authorize.ashx")
+Browser->+Client:GET /Authorize.ashx
+note right of Client:
+ The request to Authorize could
+ have other parameters to indicate
+ the Provider and Scope.  It is 
+ hard wired in this case.
+end note
+Client-->-Browser:Redirect to Authorization Server with request for profile authorization
+Browser->+Authorization Server:GET /OAuth/Authorize?client_id=consumerAppId&\nredirect_uri=client.com/Authorize.ashx&\nstate=antiForgeryToken&scope=scopeUri&response_type=code
+note right of Authorization Server:
+ The user has not logged into the
+ Authorization Server so they must first 
+ log on.
+end note
+Authorization Server-->-Browser:Redirect to /Account/Login?ReturnUrl=...
+Browser->+Authorization Server:Get /Account/Login?ReturnUrl....
+Authorization Server-->-Browser:Return Login Page
+Browser->+Authorization Server:Post Login Form
+note right of Authorization Server:
+ Normally, the user would be prompted
+ here to permit the consumer application
+ to access the data in the requested 
+ scope.  In this example, the 
+ Authorization server automatically trusts
+ the consuming application to receive
+ basic user profile information.
+end note
+Authorization Server-->-Browser:Redirect with FormsAuth Cookie to Original Authorization request url
+Browser->+Authorization Server:Get /OAuth/Authorize?.....
+note right of Authorization Server:
+ state is used as both an antiforgery
+ token and also as a key to lookup
+ where the original authorization 
+ request was sent to so that the 
+ client can can call the authorization
+ server to obtain the resource token.
+
+ Some implementations may embed the 
+ authorization server url in the state
+ value itself.
+end note
+Authorization Server-->-Browser:Redirect to client/Authorize.ashx?code=xxxx&state=antiForgeryToken
+Browser->+Client:get client.com/Authorize.ashx?code=xxxx
+Client->Client:Validate state and get authorization server URL.
+Client->+Authorization Server:POST OAuth/Token\n{code=xxx,\n redirect_uri=http://client.com/Authorize.ashx,\ngrant_type=authorization_code}
+Authorization Server-->-Client:{"access_token":"yyyy"}
+Client->+Resource Server:POST /ProfileService.svc\nHTTP Header Authorize: Bearer yyyy
+note right of Resource Server:
+ Service Authorization behavior class 
+ OAuthAuthorizationManager validates the 
+ token that was contained in the Authorize
+ HTTP header.
+end note
+Resource Server-->-Client:Service response
+Client->Client:Do something with service response
+Client-->-Browser: Respond with content/cookies/headers as needed
+Browser->App:PageLoaded
+note right of Browser:
+ In reality, more events will likely
+ be raised to the app by the webview.
+ In the success scenario we are looking
+ for a pageLoaded HTTP 200 code
+ type of response.
+ 
+ Ignore redirects, handle 403 Forbidden.
+end note
+App->+Browser:GetData
+Browser-->-App:Data
+

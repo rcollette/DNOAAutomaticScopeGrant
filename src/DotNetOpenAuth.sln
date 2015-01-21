@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{B4C6
 	ProjectSection(SolutionItems) = preProject
 		..\samples\DotNetOpenAuthAutomaticScopeGrantExampleFlow.rtf = ..\samples\DotNetOpenAuthAutomaticScopeGrantExampleFlow.rtf
 		..\samples\OAuthSessionCapture.saz = ..\samples\OAuthSessionCapture.saz
+		..\samples\SimpleOAuthSequenceDiagram.png = ..\samples\SimpleOAuthSequenceDiagram.png
+		SimpleOAuthSequenceDiagram.txt = SimpleOAuthSequenceDiagram.txt
 		..\samples\WalkThroughBreakpoints.xml = ..\samples\WalkThroughBreakpoints.xml
 	EndProjectSection
 EndProject
