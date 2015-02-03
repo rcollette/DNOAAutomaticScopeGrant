@@ -1,9 +1,4 @@
-DotNetOpenAuth
+DotNetOpenAuth Automatic Scope Grant Example
 ==============
 
-A C# implementation of the OpenID, OAuth and InfoCard protocols
-
-Samples available:
-
-* [Source](https://github.com/DotNetOpenAuth/DotNetOpenAuth.Samples)
-* [Test Stubs](http://sourceforge.net/projects/dnoa/files/releases/v4.3/v4.3.1/DotNetOpenAuth-4.3.1.13153-samples.7z/download)
+This project is an example of using OAuth2 to perform a login where the requested scope is automatically granted after the user performs login.  The use case might be where you are hosing a custom OAuth provider and the third party is well known and trusted to access basic user profile data.
